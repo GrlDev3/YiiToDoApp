@@ -36,16 +36,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.update', function(){
-        const taskId = $(this).data('id');
-        $.ajax({
-            url: '/site/' + taskId,
-            method: 'PUT',
-            data: JSON.stringify({ title: title }),
-            contentType: 'application/json',
-            success: function() {             
-                loadTasks();
-            }
-        });
+
     });
 
     $(document).on('click', '.delete', function() {

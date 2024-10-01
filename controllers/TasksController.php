@@ -34,12 +34,10 @@ class TasksController extends Controller
         if (!$title){
             Yii::$app->response->statusCode = 400;
             return ['error' => 'Task title cannot be empty'];
-            //return $this->render('index', ['error' => 'Task title cannot be empty']);
         }
         Tasks::updateTask($id, $title);
         Yii::$app->response->statusCode = 200;
 
-        //return $this->render('index', ['success'=> true,'type'=> 'update']);
         return ['success' => true];
     }
 

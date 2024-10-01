@@ -50,7 +50,7 @@ $config = [
             'rules' => [
                 'GET, HEAD site'=> 'site/index',
                 'POST site'=> 'site/index',
-                'PUT site/{id}'=> 'site/index',
+                'PUT site/<id:\d+>'=> 'site/index',
                 'DELETE site/<id:\d+>' => 'site/index',
 
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>'
