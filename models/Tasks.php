@@ -40,9 +40,16 @@ class Tasks extends Model
 
     public static function createTask($title)
     {
-        $tasks = self::getAllTasks();
+        $tasks = self::readTasksFromFile();//self::getAllTasks();
         $id = count($tasks) + 1;
-        $newTask = new self($id, $title);
+        //$newTask = new self($id, $title);
+        //Create a new task
+
+        $newTask = [
+            'id' => $id,
+            'title' => $title,
+            'timestamp' => date('Y-m-d H:i:s')
+        ];
         $tasks[] = $newTask;
         self::saveTasks($tasks);
     }
@@ -61,5 +68,15 @@ class Tasks extends Model
             return $task['id'] != $id;
         });
         self::saveTasks($tasks);
+    }
+
+    private static function readTasksFromFile()
+    {
+        $filePath = Yii::getAlias(self::$filePath);
+        if(!file_exists($filePath)){
+            //file_put_contents($filePath, '[]');
+        }
+
+        return json_decode(file_get_contents($filePath), true);
     }
 }
