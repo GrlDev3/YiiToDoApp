@@ -16,15 +16,16 @@ class TasksController extends Controller
     public function actionCreate()
     {
         // POST: Create a new task
-        $title = Yii::$app->request->post('title');
-        if (!$title) {
+        $request = Yii::$app->request;
+        $title = $request->post('title');
+        if (empty($title)) {
             Yii::$app->response->statusCode = 400;
             return ['error' => 'Task title cannot be empty'];
         }
 
-        Tasks::createTask($title);
+        $task = Tasks::createTask($title);
         Yii::$app->response->statusCode = 201;
-        return ['success' => true];
+        return $task;//['success' => true];
     }
 
     public function actionUpdate($id)
@@ -44,8 +45,12 @@ class TasksController extends Controller
     public function actionDelete($id)
     {
         // DELETE: Remove a task by ID
-        Tasks::deleteTask($id);
+        if(Tasks::deleteTask($id)){
         Yii::$app->response->statusCode = 204;
         return null;
+        }
+
+        Yii::$app->response->statusCode = 404;
+        return ['error' => 'Task not found'];
     }
 }
