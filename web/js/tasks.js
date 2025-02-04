@@ -22,7 +22,7 @@
 $(document).ready(function() {
     loadTasks();
 
-    
+    //add task
     $('#task-form').on('submit', function(e) {
         e.preventDefault();
         var title = $('#task-title').val();
@@ -42,8 +42,9 @@ $(document).ready(function() {
         });
     });
 
+    //update task
     $(document).on('click', '.update', function(){
-        const taskId = $(this).data('id');
+        var taskId = $(this).data('id');
         $.ajax({
             url: '/tasks/' + taskId,
             method: 'PUT',
@@ -55,8 +56,9 @@ $(document).ready(function() {
 
     });
 
+    //delete task
     $(document).on('click', '.delete', function() {
-        const taskId = $(this).data('id');
+        var taskId = $(this).data('id');
         $.ajax({
             url: '/tasks/' + taskId,
             method: 'DELETE',
