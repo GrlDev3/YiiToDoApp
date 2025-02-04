@@ -56,21 +56,37 @@ class Tasks extends Model
         return $newTask;
     }
 
-    public static function updateTask($id, $title)
-    {
-        $tasks = self::getAllTasks();
+    public static function addTask($title)
+{
+    $tasks = self::getAllTasks();
     
-        foreach ($tasks as &$task) {
-            if ($task['id'] == $id) {
-                $task['title'] = $title;
-                self::saveTasks($tasks);
-                return true;
-            }
+    // Generate a new ID (find max ID + 1)
+    $newId = !empty($tasks) ? max(array_column($tasks, 'id')) + 1 : 1;
+
+    $newTask = ['id' => $newId, 'title' => $title];
+    $tasks[] = $newTask;
+
+    self::saveTasks($tasks);
+    
+    return $newTask;
+}
+
+
+public static function updateTask($id, $title)
+{
+    $tasks = self::getAllTasks();
+
+    foreach ($tasks as &$task) {
+        if ($task['id'] == $id) {
+            $task['title'] = $title;
+            self::saveTasks($tasks);
+            return true;
         }
-    
-        return false;
     }
-    
+
+    return false; // Task ID not found
+}
+
 
     public static function deleteTask($id)
     {

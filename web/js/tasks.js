@@ -70,3 +70,42 @@ $(document).ready(function() {
         });
     });
 });
+
+function addTask(title) {
+    fetch('/tasks', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: title })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Task added:', data.task);
+            loadTasks(); // Reload tasks
+        } else {
+            console.error('Error adding task:', data.error);
+        }
+    });
+}
+
+function updateTask(taskId, newTitle) {
+    fetch('/tasks/' + taskId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: newTitle })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Task updated:', taskId);
+            loadTasks(); // Reload tasks
+        } else {
+            console.error('Error updating task:', data.error);
+        }
+    });
+}
+
