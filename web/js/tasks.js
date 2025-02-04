@@ -5,6 +5,7 @@
             method: 'GET',
             success: function(tasks) {
                 $('#task-list').empty();
+                tasks = JSON.parse(tasks);
                 tasks.forEach(function(task) {
                     $('#task-list').append(
                         '<div>' +
@@ -25,7 +26,7 @@
         $.ajax({
             url: '/tasks',
             method: 'POST',
-            data: {title: title},//JSON.stringify({ title: title }),
+            data: JSON.stringify({ title: title }),
             //contentType: 'application/json',
             success: function() {
                 loadTasks();
@@ -47,7 +48,7 @@
             }
         });
     });
-    
+
 $(document).ready(function() {
     loadTasks();
 });
