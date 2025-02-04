@@ -53,6 +53,7 @@ class Tasks extends Model
         ];*/
         $tasks[] = $newTask;
         self::saveTasks($tasks);
+        return $newTask;
     }
 
     public static function updateTask($id, $title)
