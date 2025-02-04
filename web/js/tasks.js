@@ -1,10 +1,9 @@
-$(document).ready(function() {
+
     function loadTasks() {
         $.ajax({
-            url: '/site',
+            url: '/tasks',
             method: 'GET',
             success: function(tasks) {
-                console.log(...tasks);
                 $('#task-list').empty();
                 tasks.forEach(function(task) {
                     $('#task-list').append(
@@ -19,16 +18,15 @@ $(document).ready(function() {
         });
     }
 
-    loadTasks();
 
     $('#task-form').on('submit', function(e) {
         e.preventDefault();
         const title = $('#task-title').val();
         $.ajax({
-            url: '/site',
+            url: '/tasks',
             method: 'POST',
-            data: JSON.stringify({ title: title }),
-            contentType: 'application/json',
+            data: {title: title},//JSON.stringify({ title: title }),
+            //contentType: 'application/json',
             success: function() {
                 loadTasks();
             }
@@ -42,11 +40,14 @@ $(document).ready(function() {
     $(document).on('click', '.delete', function() {
         const taskId = $(this).data('id');
         $.ajax({
-            url: '/site/' + taskId,
+            url: '/tasks/' + taskId,
             method: 'DELETE',
             success: function() {
                 loadTasks();
             }
         });
     });
+    
+$(document).ready(function() {
+    loadTasks();
 });

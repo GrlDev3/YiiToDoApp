@@ -29,13 +29,13 @@ class Tasks extends Model
 
     public static function getAllTasks()
     {
-        $tasks = file_get_contents(Yii::getAlias(self::$filePath));
+        $tasks = file_get_contents(\Yii::getAlias(self::$filePath));
         return json_decode($tasks, true) ?: [];
     }
 
     public static function saveTasks($tasks)
     {
-        file_put_contents(Yii::getAlias(self::$filePath), json_encode($tasks, JSON_PRETTY_PRINT));
+        file_put_contents(\Yii::getAlias(self::$filePath), json_encode($tasks, JSON_PRETTY_PRINT));
     }
 
     public static function createTask($title)
