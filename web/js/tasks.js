@@ -19,16 +19,24 @@
         });
     }
 
+$(document).ready(function() {
+    loadTasks();
 
+    
     $('#task-form').on('submit', function(e) {
         e.preventDefault();
-        const title = $('#task-title').val();
+        var title = $('#task-title').val();
+        if(!title){
+            alert('Task title cannot be empty')
+            return;
+        }
         $.ajax({
             url: '/tasks',
             method: 'POST',
             data: JSON.stringify({ title: title }),
             //contentType: 'application/json',
             success: function() {
+                $('#task-title').val('');
                 loadTasks();
             }
         });
@@ -57,7 +65,4 @@
             }
         });
     });
-
-$(document).ready(function() {
-    loadTasks();
 });
