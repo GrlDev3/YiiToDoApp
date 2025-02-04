@@ -35,6 +35,15 @@
     });
 
     $(document).on('click', '.update', function(){
+        const taskId = $(this).data('id');
+        $.ajax({
+            url: '/tasks/' + taskId,
+            method: 'PUT',
+            data: JSON.stringify({title: title}),
+            success: function(){
+                loadTasks();
+            }
+        })
 
     });
 
