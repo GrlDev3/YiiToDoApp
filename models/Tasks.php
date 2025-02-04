@@ -63,7 +63,7 @@ class Tasks extends Model
     // Generate a new ID (find max ID + 1)
     $newId = !empty($tasks) ? max(array_column($tasks, 'id')) + 1 : 1;
 
-    $newTask = ['id' => $newId, 'title' => $title];
+    $newTask = ['id' => $newId, 'title' => $title, 'timestamp' => date('Y-m-d H:i:s')];
     $tasks[] = $newTask;
 
     self::saveTasks($tasks);
