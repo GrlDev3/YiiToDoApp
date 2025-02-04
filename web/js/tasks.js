@@ -5,7 +5,7 @@
             method: 'GET',
             success: function(tasks) {
                 $('#task-list').empty();
-                tasks = JSON.parse(tasks);
+                //tasks = JSON.parse(tasks);
                 tasks.forEach(function(task) {
                     $('#task-list').append(
                         '<div>' +
