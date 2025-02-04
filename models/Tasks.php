@@ -59,29 +59,34 @@ class Tasks extends Model
     public static function updateTask($id, $title)
     {
         $tasks = self::getAllTasks();
-        $tasks[$id] = $title;
-        self::saveTasks($tasks);
-    }
-
-    public static function deleteTask($id)
-    {
-        $tasks = self::getAllTasks();
-      /*  $tasks = array_filter($tasks, function($task) use ($id) {
-            return $task['id'] != $id;
-        });
-        self::saveTasks($tasks);*/
-
-        foreach ($tasks as $key => $value) {
-            if( $value['id'] == $id)
-            {
-                unset($tasks[$key]);
+    
+        foreach ($tasks as &$task) {
+            if ($task['id'] == $id) {
+                $task['title'] = $title;
                 self::saveTasks($tasks);
                 return true;
             }
         }
-
+    
         return false;
     }
+    
+
+    public static function deleteTask($id)
+    {
+        $tasks = self::getAllTasks();
+    
+        foreach ($tasks as $key => $task) {
+            if ($task['id'] == $id) {
+                unset($tasks[$key]);
+                self::saveTasks(array_values($tasks)); // Reset indexes
+                return true;
+            }
+        }
+    
+        return false;
+    }
+    
 
     private static function readTasksFromFile()
     {

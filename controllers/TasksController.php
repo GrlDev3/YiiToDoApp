@@ -30,17 +30,20 @@ class TasksController extends Controller
 
     public function actionUpdate($id)
     {
-        //PUT: Update task
-        $title = Yii::$app->request->post('title');
-        if (!$title){
+        $request = Yii::$app->request;
+        $data = json_decode($request->getRawBody(), true);
+        
+        if (!isset($data['title']) || empty($data['title'])) {
             Yii::$app->response->statusCode = 400;
             return ['error' => 'Task title cannot be empty'];
         }
-        Tasks::updateTask($id, $title);
+    
+        Tasks::updateTask($id, $data['title']);
         Yii::$app->response->statusCode = 200;
-
+    
         return ['success' => true];
     }
+    
 
     public function actionDelete($id)
     {

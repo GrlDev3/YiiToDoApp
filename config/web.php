@@ -48,13 +48,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'GET, HEAD tasks'=> 'task/index',
-                'POST tasks'=> 'task/create',
-                'PUT tasks/<id:\d+>'=> 'task/update',
-                'DELETE tasks/<id:\d+>' => 'task/delete',
-
-                //Standard routes
-                '<controller:\w+>/action:\w+>/' => '<controller>/<action>'
+                'GET tasks'=> 'tasks/index', //, HEAD
+                'POST tasks'=> 'tasks/create',
+                'PUT tasks/<id:\d+>'=> 'tasks/update',
+                'DELETE tasks/<id:\d+>' => 'tasks/delete',
             ],
         ],
         

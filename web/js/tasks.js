@@ -34,7 +34,7 @@ $(document).ready(function() {
             url: '/tasks',
             method: 'POST',
             data: JSON.stringify({ title: title }),
-            //contentType: 'application/json',
+            contentType: 'application/json',
             success: function() {
                 $('#task-title').val('');
                 loadTasks();
@@ -48,6 +48,7 @@ $(document).ready(function() {
         $.ajax({
             url: '/tasks/' + taskId,
             method: 'PUT',
+            contentType: 'application/json',
             data: JSON.stringify({title: title}),
             success: function(){
                 loadTasks();
@@ -62,6 +63,7 @@ $(document).ready(function() {
         $.ajax({
             url: '/tasks/' + taskId,
             method: 'DELETE',
+            contentType: 'application/json',
             success: function() {
                 loadTasks();
             }
